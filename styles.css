@@ -46,6 +46,10 @@ dd {
   padding: 8px;
 }
 
+.docset td.docfn {
+  font-family: monospace
+}
+
 #content {
   line-height: 1.4em;
   margin: 20px;
