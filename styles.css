@@ -1,5 +1,5 @@
 
-body {
+html, body {
   background-color: #FFFFFF;
   color: #000000;
   font-family: sans-serif;
@@ -28,6 +28,14 @@ h3, h4 {
   font-size: 100%;
 }
 
+ul.news {
+  list-style-type: none;
+}
+
+ul.news li {
+  padding-bottom: 8px;
+}
+
 dt {
   font-weight: bold;
 }
@@ -48,6 +56,29 @@ dd {
 
 .docset td.docfn {
   font-family: monospace
+}
+
+#nav ul {
+  list-style-type: none;
+  margin-top: 0;
+  margin-left: 30px;
+  padding: 8px;
+}
+
+#nav ul li {
+  display: inline;
+  padding-left: 12px;
+  padding-right: 12px;
+  background-color: #e6e6e6;
+}
+
+#nav a {
+  text-decoration: none;
+  color: #234764;
+}
+
+#nav a.hover {
+  text-decoration: underline;
 }
 
 #content {

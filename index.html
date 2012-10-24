@@ -4,6 +4,14 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <body>
+  <div id="nav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#news">News</a></li>
+      <li><a href="index.html#documents">Documents</a></li>
+      <li><a href="index.html#drafts">Drafts</a></li>
+    </ul>
+  </div>
   <div id="content">
     <h1>AFS3 Standardization Group</h1>
     <h2>About Us</h2>
@@ -25,15 +33,18 @@
         (until October 1, 2014)
       </ul>
 
-    <h2>News</h2><ul>
-      <li>The <a href="http://openafs2012.inf.ed.ac.uk">2012 European AFS
-        and Kerberos Conference</a> will take place October 16-18 at the
+    <h2 id="news">News</h2></a>
+    <ul class="news">
+      <li><small>October 10, 2012</small><br/>The <a href="http://openafs2012.inf.ed.ac.uk">2012 European AFS
+      and Kerberos Conference</a> will take place October 16-18 at the
       University of Edinburgh School of Informatics.  Standardization
       group chair <b>Mike Meffie</b> will give an update on the current
-      state of the standardization effort and our future plans.
+      state of the standardization effort and our future plans.</li>
+
+      <li><a href="news.html">Older news</a></li>
     </ul>
 
-    <h2>Documents</h2>
+    <h2 id="documents">Documents</h2>
     Section 2.3.3 of our provisional charter describes three document
     states:<dl>
       <dt>Draft</dt>
@@ -81,7 +92,7 @@
       </tr>
     </table>
 
-    <h2>Drafts</h2>
+    <h2 id="drafts">Drafts</h2>
     <p>The AFS3 Standardization Group is currently working on the
     following documents:</p>
 
