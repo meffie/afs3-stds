@@ -44,6 +44,10 @@ dd {
   padding-bottom: 0.8em;
 }
 
+.docset {
+  width: 100%;
+}
+
 .docset th {
   font-size: 85%;
   padding: 2px;
