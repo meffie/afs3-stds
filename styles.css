@@ -54,9 +54,25 @@ dd {
   background-color: #e6e6e6;
 }
 
+.docset th.status {
+  width: 15%;
+}
+
+.docset th.document {
+  width: 65%;
+}
+
+.docset th.formats {
+  width: 20%;
+}
+
 .docset td {
   padding: 8px;
   vertical-align: top;
+}
+
+.docset td.doctitle {
+  font-family: serif;
 }
 
 .docset td.docfn {
