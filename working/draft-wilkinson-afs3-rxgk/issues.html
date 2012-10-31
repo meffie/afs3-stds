@@ -20,9 +20,20 @@
 
     <h2>Issue Traking: draft-wilkinson-afs3-rxgk</h2>
 
+    <p>Current work-in-progress draft.</p>
+    <ul>
+          <li><a href="https://github.com/kaduk/openafs/commits/prot">Changes</a> (commits)</li>
+          <li><a href="/working/draft-wilkinson-afs3-rxgk/diff/02-03a.diff.txt">Changes</a> (txt)</li>
+    </ul>
+
 <p>Current open issues for draft-wilkison-afs3-rxgk.</p>
 
 <table class="docset" frame="box" rules="all" border="1">
+<tr>
+<th>#</th>
+<th>Issue</th>
+<th>Resolution</th>
+</tr>
 <tr>
 <td>0.a</td>
 <td>
@@ -39,6 +50,10 @@ would be okay to add.  I don't see any other replies to that issue, so
 maybe it is less large than it first seemed, and we should just add the 
 rollover provision.
 </td>
+<td>
+Andrew suggested the key rollover should be allowed, and Ben will update
+I-D to add the rollover provision.
+</td>
 </tr>
 
 <tr>
@@ -53,23 +68,36 @@ used to generate K0 be?  Why are 20 octets enough for the RX
 challenge/response?) I will do more research on this front, but references 
 and comments are welcome.
 </td>
-</tr>
-
-<tr>
-<td>1</td>
 <td>
-Dave Botsch asked multiple times for description of "client" and 
-"application" in the requirements language section.  I don't think this is 
-usually done in this sort of document, though.
+Ben will update the I-D to specify the length of the nonce, to research nonce
+size justification, and add some text to the I-D regarding the nonce size.
 </td>
 </tr>
 
+<tr>
+<td><strike>1</strike></td>
+<td>
+<strike>
+Dave Botsch asked multiple times for description of "client" and 
+"application" in the requirements language section.  I don't think this is 
+usually done in this sort of document, though.
+</strike>
+</td>
+<td>
+No action required.
+</td>
+</tr>
 
 <tr>
-<td>2</td>
+<td><strike>2</strike></td>
 <td>
+<strike>
 When describing security levels, do we want to make analogies to 
 RPSEC_GSS security levels?
+</strike>
+</td>
+<td>
+No action required.
 </td>
 </tr>
 
@@ -80,6 +108,9 @@ Do we want to give upper bounds on the length of various opaques?
 (Are there security considerations to allowing these objects to grow to 
 large sizes?)
 </td>
+<td>
+Upper bounds need to be documented in the I-D.
+</td>
 </tr>
 
 <tr>
@@ -87,6 +118,9 @@ large sizes?)
 <td>
 RXGK_StartParams' description of bytelife says "establish a new 
 context" which is more ambiguous than it should be.
+</td>
+<td>
+RXGK_StartParams text needs to be clarified.
 </td>
 </tr>
 
@@ -97,6 +131,9 @@ GSSNegotiate's description of rxgk_info should say something about not
 being defined if gss_major_status != GSS_S_COMPLETE.  I can come up with 
 some wording for this.
 </td>
+<td>
+Ben to update I-D.
+</td>
 </tr>
 
 <tr>
@@ -106,22 +143,32 @@ There used to be an unused flags field in RXGK_ClientInfo that got
 removed for this revision.  Andrew Deason asked whether it's worth keeping 
 the flags around for possible future use, with no response.
 </td>
+<td>
+The flags field will be removed or it will be declared as reserved (set to all zerors).
+This is intended to provide some future proofing, at a cost of 4 bytes of playload.
+</td>
 </tr>
 
 <tr>
 <td>7</td>
 <td>
-(7) We may want to remind readers of the "K0" notation for the master key.
+We may want to remind readers of the "K0" notation for the master key.
+</td>
+<td>
+Resolution is unclear.
 </td>
 </tr>
 
 <tr>
 <td>8</td>
 <td>
-(8) The maxcalls and call_numbers fields in RXGK_Authenticator are not 
+The maxcalls and call_numbers fields in RXGK_Authenticator are not 
 referened elsewhere in the document, and maxcalls is redundant from 
 call_numbers.  Should these be checked along with the epoch and connection 
 ID when checking the response?
+</td>
+<td>
+Resolution is unclear.
 </td>
 </tr>
 
@@ -131,6 +178,9 @@ ID when checking the response?
 8.7.1's treatment of encrypt() is rather informal and short; we may 
 want to give a better sketch of an algorithm to follow.
 </td>
+<td>
+Yes, a better description needs to be provided in 8.7.1.
+</td>
 </tr>
 
 <tr>
@@ -139,6 +189,9 @@ want to give a better sketch of an algorithm to follow.
 In 8.7.2 we could better describe (or have artwork for!) the 
 difference between the in-memory and on-the-wire layout of the integrity 
 protected packet.
+</td>
+<td>
+Yes, 8.7.2. should have a diagram.
 </td>
 </tr>
 
