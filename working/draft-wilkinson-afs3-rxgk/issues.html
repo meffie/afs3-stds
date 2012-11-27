@@ -37,6 +37,7 @@
 <tr>
 <td>0.a</td>
 <td>
+<strike>
 Probably the biggest issue which is unaddressed is that of key rollover. 
 We use the 16-bit "checksum" field of the RX header to store the key 
 number, and section 8.2 ("Rekeying") currently specifies that when that 
@@ -49,10 +50,10 @@ safely passed through a single AES key, and seemed to think that rollover
 would be okay to add.  I don't see any other replies to that issue, so 
 maybe it is less large than it first seemed, and we should just add the 
 rollover provision.
+</strike>
 </td>
 <td>
-Andrew suggested the key rollover should be allowed, and Ben will update
-I-D to add the rollover provision.
+Draft updated with key rollover provisions.
 </td>
 </tr>
 
@@ -116,23 +117,27 @@ Upper bounds need to be documented in the I-D.
 <tr>
 <td>4</td>
 <td>
+<strike>
 RXGK_StartParams' description of bytelife says "establish a new 
 context" which is more ambiguous than it should be.
+</strike>
 </td>
 <td>
-RXGK_StartParams text needs to be clarified.
+RXGK_StartParams text clarified.
 </td>
 </tr>
 
 <tr>
 <td>5</td>
 <td>
+<strike>
 GSSNegotiate's description of rxgk_info should say something about not 
 being defined if gss_major_status != GSS_S_COMPLETE.  I can come up with 
 some wording for this.
+</strike>
 </td>
 <td>
-Ben to update I-D.
+Draft updated.
 </td>
 </tr>
 
@@ -175,11 +180,13 @@ Resolution is unclear.
 <tr>
 <td>9</td>
 <td>
+<strike>
 8.7.1's treatment of encrypt() is rather informal and short; we may 
 want to give a better sketch of an algorithm to follow.
+</strike>
 </td>
 <td>
-Yes, a better description needs to be provided in 8.7.1.
+Updated.
 </td>
 </tr>
 
