@@ -58,8 +58,9 @@ Draft updated with key rollover provisions.
 </tr>
 
 <tr>
-<td>0.b</td>
+<td><strike>0.b</strike></td>
 <td>
+<strike>
 The next biggest issue I see is that in quite a number of places, we 
 specify that a random value (or nonce) should be used.  Sometimes we 
 specify a length, sometimes not, but we do a bad job of justifying what a 
@@ -68,10 +69,10 @@ necessary.  (E.g., how long should the client and server nonces that are
 used to generate K0 be?  Why are 20 octets enough for the RX 
 challenge/response?) I will do more research on this front, but references 
 and comments are welcome.
+</strike>
 </td>
 <td>
-Ben will update the I-D to specify the length of the nonce, to research nonce
-size justification, and add some text to the I-D regarding the nonce size.
+Updated.
 </td>
 </tr>
 
@@ -128,7 +129,7 @@ RXGK_StartParams text clarified.
 </tr>
 
 <tr>
-<td>5</td>
+<td><strike>5</strike></td>
 <td>
 <strike>
 GSSNegotiate's description of rxgk_info should say something about not 
@@ -142,38 +143,43 @@ Draft updated.
 </tr>
 
 <tr>
-<td>6</td>
+<td><strike>6</strike></td>
 <td>
+<strike>
 There used to be an unused flags field in RXGK_ClientInfo that got 
 removed for this revision.  Andrew Deason asked whether it's worth keeping 
 the flags around for possible future use, with no response.
+</strike>
 </td>
 <td>
-The flags field will be removed or it will be declared as reserved (set to all zerors).
-This is intended to provide some future proofing, at a cost of 4 bytes of playload.
+The flags removed.
 </td>
 </tr>
 
 <tr>
-<td>7</td>
+<td><strike>7</strike></td>
 <td>
+<strike>
 We may want to remind readers of the "K0" notation for the master key.
+</strike>
 </td>
 <td>
-Resolution is unclear.
+Updated
 </td>
 </tr>
 
 <tr>
-<td>8</td>
+<td><strike>8<strike></td>
 <td>
+<strike>
 The maxcalls and call_numbers fields in RXGK_Authenticator are not 
 referened elsewhere in the document, and maxcalls is redundant from 
 call_numbers.  Should these be checked along with the epoch and connection 
 ID when checking the response?
+</strike>
 </td>
 <td>
-Resolution is unclear.
+
 </td>
 </tr>
 
