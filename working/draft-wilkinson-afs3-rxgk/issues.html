@@ -23,7 +23,6 @@
     <p>Current work-in-progress draft.</p>
     <ul>
           <li><a href="https://github.com/kaduk/openafs/commits/prot">Changes</a> (commits)</li>
-          <li><a href="/working/draft-wilkinson-afs3-rxgk/diff/02-03b.diff.txt">Changes</a> (txt)</li>
     </ul>
 
 <p>Current open issues for draft-wilkison-afs3-rxgk.</p>
@@ -34,6 +33,31 @@
 <th>Issue</th>
 <th>Resolution</th>
 </tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>
+Length limits on variable-length arrays
+</td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>
+Discussion of putting errors in RX aborts vs. in-band error fields
+</td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>
+Correct the client's termination condition for the GSSNegotiate RPC
+</td>
+<td>&nbsp;</td>
+</tr>
+
 <tr>
 <td>0.a</td>
 <td>
@@ -58,7 +82,7 @@ Draft updated with key rollover provisions.
 </tr>
 
 <tr>
-<td><strike>0.b</strike></td>
+<td>0.b</td>
 <td>
 <strike>
 The next biggest issue I see is that in quite a number of places, we 
@@ -77,7 +101,7 @@ Updated.
 </tr>
 
 <tr>
-<td><strike>1</strike></td>
+<td>1</td>
 <td>
 <strike>
 Dave Botsch asked multiple times for description of "client" and 
@@ -91,7 +115,7 @@ No action required.
 </tr>
 
 <tr>
-<td><strike>2</strike></td>
+<td>2</td>
 <td>
 <strike>
 When describing security levels, do we want to make analogies to 
@@ -104,7 +128,7 @@ No action required.
 </tr>
 
 <tr>
-<td><strike>3</strike></td>
+<td>3</td>
 <td>
 <strike>
 Do we want to give upper bounds on the length of various opaques? 
@@ -124,12 +148,12 @@ RXGK_StartParams' description of bytelife says "establish a new
 context" which is more ambiguous than it should be.
 </td>
 <td>
-RXGK_StartParams text clarified.
+?
 </td>
 </tr>
 
 <tr>
-<td><strike>5</strike></td>
+<td>5</td>
 <td>
 <strike>
 GSSNegotiate's description of rxgk_info should say something about not 
@@ -143,7 +167,7 @@ Draft updated.
 </tr>
 
 <tr>
-<td><strike>6</strike></td>
+<td>6</td>
 <td>
 <strike>
 There used to be an unused flags field in RXGK_ClientInfo that got 
@@ -157,7 +181,7 @@ The flags removed.
 </tr>
 
 <tr>
-<td><strike>7</strike></td>
+<td>7</td>
 <td>
 <strike>
 We may want to remind readers of the "K0" notation for the master key.
@@ -169,7 +193,7 @@ Updated
 </tr>
 
 <tr>
-<td><strike>8<strike></td>
+<td>8</td>
 <td>
 <strike>
 The maxcalls and call_numbers fields in RXGK_Authenticator are not 
@@ -197,12 +221,14 @@ Updated.
 <tr>
 <td>10</td>
 <td>
+<strike>
 In 8.7.2 we could better describe (or have artwork for!) the 
 difference between the in-memory and on-the-wire layout of the integrity 
 protected packet.
+</strike>
 </td>
 <td>
-Yes, 8.7.2. should have a diagram.
+Artwork added.
 </td>
 </tr>
 
