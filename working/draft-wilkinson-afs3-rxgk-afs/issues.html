@@ -1,0 +1,142 @@
+<html>
+  <head>
+    <title>AFS3 Standardization Group</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+  </head>
+  <body>
+  <div id="nav">
+    <ul>
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/index.html#news">News</a></li>
+      <li><a href="/index.html#documents">Documents</a></li>
+      <li><a href="/drafts.html">Drafts</a></li>
+      <li><a href="http://www.central.org/numbers/index.html">Assigned Numbers</a></li>
+    </ul>
+  </div>
+</head>
+<body>
+  <div id="content">
+    <h1>AFS3 Standardization Group</h1>
+
+    <h2>Issue Tracking: draft-wilkinson-afs3-rxgk-afs</h2>
+
+    <p>Current work-in-progress draft.</p>
+    <ul>
+          <li><a href="https://github.com/kaduk/openafs/commits/prot">Changes</a> (commits)</li>
+    </ul>
+
+<p>Current open issues for draft-wilkison-afs3-rxgk-afs.</p>
+
+<table class="docset" frame="box" rules="all" border="1">
+<tr>
+<th>#</th>
+<th>Issue</th>
+<th>Resolution</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>
+We have some inconsistency around the RXGK_TokenInfo structure (there are
+two separate definitions!) and we say that an otherwise undefined
+RXGK_Token structure is encrypted (after XDR encoding) and stored in the
+encrypted_token field of the TokenContainer structure.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>
+The notes that Andrew took included some uncertainty about how the
+document treats the attack which having CM-specific keying material
+prevents, both in the "Client Tokens" section and in the security
+considerations.  Simon replied about this saying basically that he's happy
+with the current text, but I don't know if Andrew et al are happy with
+that.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>
+We want to add some more RFC 2119 language, for frequency of the CM
+renewing its token and maybe more.  We may want to remove the RFC 2119
+language about removing rxkad keys from the security considerations
+section, but that is not entirely clear to me.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>
+We should reference the VL spec (where we mention VL_RegisterAddrs).
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>
+The Deason notes suggested to s/part of the RXAFS_ family/part of the
+AFSINT protocol/ which did not elicit any further comment that I saw.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>
+We need a better reference for extended callbacks.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>
+I think Simon's reply clarified why the document forces breaking all
+callbacks on SetCallbackKey, but again there was not further comment.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>
+I don't think there was consensus about the generation and expiry of
+extended callbacks and which channels need be rxgk-secured, and
+whether/how a client could upgrade and downgrade to and from them. A
+proposed text was "Only RPCs issued over an rxgk protected connection
+should cause rxgk callbacks to be received"; it was also proposed that
+rxgk clients might change UUID (so as to appear as a differnent client
+entirely and avoid the downgrading problem).  I need to familiarize myself
+more with the extended callbacks document before I can add much here.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>9</td>
+<td>
+We will need to pull in the changes we made to CombineTokens for the
+AFSCombineTokens RPC.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>10</td>
+<td>
+We also need an AFS registry section.
+</td>
+<td></td>
+</tr>
+
+
+</table>
+
+</body>
+</html>
