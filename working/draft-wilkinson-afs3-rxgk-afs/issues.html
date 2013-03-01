@@ -37,12 +37,17 @@
 <tr>
 <td>1</td>
 <td>
+<strike>
 We have some inconsistency around the RXGK_TokenInfo structure (there are
 two separate definitions!) and we say that an otherwise undefined
 RXGK_Token structure is encrypted (after XDR encoding) and stored in the
 encrypted_token field of the TokenContainer structure.
+</strike>
 </td>
-<td></td>
+<td>
+Fixed.
+See commit bc9fb357
+</td>
 </tr>
 
 <tr>
@@ -61,12 +66,14 @@ that.
 <tr>
 <td>3</td>
 <td>
-We want to add some more RFC 2119 language, for frequency of the CM
-renewing its token and maybe more.  We may want to remove the RFC 2119
+<strike>We want to add some more RFC 2119 language, for frequency of the CM
+renewing its token and maybe more.  </strike> We may want to remove the RFC 2119
 language about removing rxkad keys from the security considerations
 section, but that is not entirely clear to me.
 </td>
-<td></td>
+<td>CM renew token text added.
+Security considerations not updated.
+</td>
 </tr>
 
 <tr>
@@ -74,16 +81,24 @@ section, but that is not entirely clear to me.
 <td>
 We should reference the VL spec (where we mention VL_RegisterAddrs).
 </td>
-<td></td>
+<td>
+There is no spec that covers VL_RegisterAddrs. (VL and VVL documents
+pre-date the VL_RegisterAddrs RPC.) Resolution is unclear.
+</td>
 </tr>
 
 <tr>
 <td>5</td>
 <td>
+<strike>
 The Deason notes suggested to s/part of the RXAFS_ family/part of the
 AFSINT protocol/ which did not elicit any further comment that I saw.
+</strike>
 </td>
-<td></td>
+<td>
+Fixed.
+See commit e2b5421a
+</td>
 </tr>
 
 <tr>
@@ -91,7 +106,10 @@ AFSINT protocol/ which did not elicit any further comment that I saw.
 <td>
 We need a better reference for extended callbacks.
 </td>
-<td></td>
+<td>
+Fixed.
+See commit b7b23186
+</td>
 </tr>
 
 <tr>
@@ -100,7 +118,8 @@ We need a better reference for extended callbacks.
 I think Simon's reply clarified why the document forces breaking all
 callbacks on SetCallbackKey, but again there was not further comment.
 </td>
-<td></td>
+<td>
+</td>
 </tr>
 
 <tr>
@@ -115,26 +134,49 @@ rxgk clients might change UUID (so as to appear as a differnent client
 entirely and avoid the downgrading problem).  I need to familiarize myself
 more with the extended callbacks document before I can add much here.
 </td>
-<td></td>
+<td>
+Discussed extensively on list.
+Ben proposed covering callback keying in a subsequent I-D.
+</td>
 </tr>
 
 <tr>
 <td>9</td>
 <td>
+<strike>
 We will need to pull in the changes we made to CombineTokens for the
 AFSCombineTokens RPC.
+</strike>
 </td>
-<td></td>
+<td>
+Fixed.
+See commit cfad0561
+</td>
 </tr>
 
 <tr>
 <td>10</td>
 <td>
+<strike>
 We also need an AFS registry section.
+</strike>
 </td>
-<td></td>
+<td>
+Fixed.
+See commit bd42b12b
+</td>
 </tr>
 
+<tr>
+<td>11</td>
+<td>
+Acceptor identities for dbservers vs. fileserver/volservers
+</td>
+<td>
+Consensus reached in discussions. Requires a small change
+to the rxgk and rkgk-afs documents.
+</td>
+</tr>
 
 </table>
 
