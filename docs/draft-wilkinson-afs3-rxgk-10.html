@@ -1,0 +1,1181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>rxgk: GSSAPI based security class for RX</title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents"/>
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Requirements Language"/>
+<link href="#rfc.section.2" rel="Chapter" title="2 Time Representation"/>
+<link href="#rfc.section.3" rel="Chapter" title="3 Encryption Framework"/>
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 Key Usage Values"/>
+<link href="#rfc.section.4" rel="Chapter" title="4 Security Levels"/>
+<link href="#rfc.section.5" rel="Chapter" title="5 Token Format"/>
+<link href="#rfc.section.6" rel="Chapter" title="6 Key Negotiation"/>
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 RPC Interface"/>
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 GSS Negotiation Loop"/>
+<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Returned Information"/>
+<link href="#rfc.section.7" rel="Chapter" title="7 Combining Tokens"/>
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Overview"/>
+<link href="#rfc.section.7.2" rel="Chapter" title="7.2 Key Combination Algorithm"/>
+<link href="#rfc.section.7.3" rel="Chapter" title="7.3 RPC Definition"/>
+<link href="#rfc.section.7.4" rel="Chapter" title="7.4 Server Operation"/>
+<link href="#rfc.section.7.5" rel="Chapter" title="7.5 Client Operation"/>
+<link href="#rfc.section.8" rel="Chapter" title="8 The rxgk Security Class"/>
+<link href="#rfc.section.8.1" rel="Chapter" title="8.1 Overview"/>
+<link href="#rfc.section.8.2" rel="Chapter" title="8.2 Rekeying"/>
+<link href="#rfc.section.8.3" rel="Chapter" title="8.3 Key Derivation"/>
+<link href="#rfc.section.8.4" rel="Chapter" title="8.4 The Challenge"/>
+<link href="#rfc.section.8.5" rel="Chapter" title="8.5 The Response"/>
+<link href="#rfc.section.8.5.1" rel="Chapter" title="8.5.1 The Authenticator"/>
+<link href="#rfc.section.8.6" rel="Chapter" title="8.6 Checking the Response"/>
+<link href="#rfc.section.8.7" rel="Chapter" title="8.7 Packet Handling"/>
+<link href="#rfc.section.8.7.1" rel="Chapter" title="8.7.1 Authentication Only"/>
+<link href="#rfc.section.8.7.2" rel="Chapter" title="8.7.2 Integrity Protection"/>
+<link href="#rfc.section.8.7.3" rel="Chapter" title="8.7.3 Encryption"/>
+<link href="#rfc.section.9" rel="Chapter" title="9 RXGK protocol error codes"/>
+<link href="#rfc.section.10" rel="Chapter" title="10 AFS-3 Registry Considerations"/>
+<link href="#rfc.section.11" rel="Chapter" title="11 IANA Considerations"/>
+<link href="#rfc.section.12" rel="Chapter" title="12 Security Considerations"/>
+<link href="#rfc.section.12.1" rel="Chapter" title="12.1 Abort Packets"/>
+<link href="#rfc.section.12.2" rel="Chapter" title="12.2 Token Expiry"/>
+<link href="#rfc.section.12.3" rel="Chapter" title="12.3 Nonce Lengths"/>
+<link href="#rfc.references" rel="Chapter" title="13 References"/>
+<link href="#rfc.references.1" rel="Chapter" title="13.1 Informational References"/>
+<link href="#rfc.references.2" rel="Chapter" title="13.2 Normative References"/>
+<link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements"/>
+<link href="#rfc.appendix.B" rel="Chapter" title="B Changes"/>
+<link href="#rfc.appendix.B.1" rel="Chapter" title="B.1 Since 00"/>
+<link href="#rfc.appendix.B.2" rel="Chapter" title="B.2 Since 01"/>
+<link href="#rfc.appendix.B.3" rel="Chapter" title="B.3 Since 02"/>
+<link href="#rfc.appendix.B.4" rel="Chapter" title="B.4 Since 03"/>
+<link href="#rfc.appendix.B.5" rel="Chapter" title="B.5 Since 04"/>
+<link href="#rfc.appendix.B.6" rel="Chapter" title="B.6 Since 05"/>
+<link href="#rfc.appendix.B.7" rel="Chapter" title="B.7 Since 06"/>
+<link href="#rfc.appendix.B.8" rel="Chapter" title="B.8 Since 07"/>
+<link href="#rfc.appendix.B.9" rel="Chapter" title="B.9 Since 08"/>
+<link href="#rfc.appendix.B.10" rel="Chapter" title="B.10 Since 09"/>
+<link href="#rfc.authors" rel="Chapter"/>
+
+
+  <meta name="generator" content="xml2rfc version 2.4.5 - http://tools.ietf.org/tools/xml2rfc" />
+<meta name="viewport" content="width=600;" />
+<meta name="viewport" content="width=600;" />
+<meta name="viewport" content="width=600;" />
+<meta name="viewport" content="width=600;" />
+<meta name="viewport" content="width=600;" />
+<meta name="viewport" content="width=600;" />
+<meta name="viewport" content="width=600;" />
+<meta name="viewport" content="width=600;" />
+<meta name="viewport" content="width=600;" />
+<meta name="viewport" content="width=600;" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Wilkinson, S. and B. Kaduk" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-wilkinson-afs3-rxgk-10" />
+  <meta name="dct.issued" scheme="ISO8601" content="2014-1-8" />
+  <meta name="dct.abstract" content="rxgk is a security class for the RX RPC protocol. It uses the GSSAPI framework to provide an authentication service that provides authentication, confidentiality and integrity protection for the rxgk security class.  This document provides a general description of rxgk and how to integrate it into generic RX applications. Application specific behaviour will be described, as necessary, in future documents." />
+  <meta name="description" content="rxgk is a security class for the RX RPC protocol. It uses the GSSAPI framework to provide an authentication service that provides authentication, confidentiality and integrity protection for the rxgk security class.  This document provides a general description of rxgk and how to integrate it into generic RX applications. Application specific behaviour will be described, as necessary, in future documents." />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+  <td class="left">Network Working Group</td>
+  <td class="right">S. Wilkinson</td>
+</tr>
+<tr>
+  <td class="left">Internet-Draft</td>
+  <td class="right">YFS</td>
+</tr>
+<tr>
+  <td class="left">Intended status: Informational</td>
+  <td class="right">B. Kaduk</td>
+</tr>
+<tr>
+  <td class="left">Expires: July 12, 2014</td>
+  <td class="right">MIT</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">January 8, 2014</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">rxgk: GSSAPI based security class for RX<br />
+  <span class="filename">draft-wilkinson-afs3-rxgk-10</span></p>
+  
+  <h1 id="rfc.abstract">
+  <a href="#rfc.abstract">Abstract</a>
+</h1>
+<p>rxgk is a security class for the RX RPC protocol. It uses the GSSAPI framework to provide an authentication service that provides authentication, confidentiality and integrity protection for the rxgk security class.  This document provides a general description of rxgk and how to integrate it into generic RX applications. Application specific behaviour will be described, as necessary, in future documents.</p>
+<h1 id="rfc.status">
+  <a href="#rfc.status">Status of This Memo</a>
+</h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on July 12, 2014.</p>
+<h1 id="rfc.copyrightnotice">
+  <a href="#rfc.copyrightnotice">Copyright Notice</a>
+</h1>
+<p>Copyright (c) 2014 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
+<li>1.1.   <a href="#rfc.section.1.1">Requirements Language</a></li>
+<li>2.   <a href="#rfc.section.2">Time Representation</a></li>
+<li>3.   <a href="#rfc.section.3">Encryption Framework</a></li>
+<li>3.1.   <a href="#rfc.section.3.1">Key Usage Values</a></li>
+<li>4.   <a href="#rfc.section.4">Security Levels</a></li>
+<li>5.   <a href="#rfc.section.5">Token Format</a></li>
+<li>6.   <a href="#rfc.section.6">Key Negotiation</a></li>
+<li>6.1.   <a href="#rfc.section.6.1">RPC Interface</a></li>
+<li>6.2.   <a href="#rfc.section.6.2">GSS Negotiation Loop</a></li>
+<li>6.3.   <a href="#rfc.section.6.3">Returned Information</a></li>
+<li>7.   <a href="#rfc.section.7">Combining Tokens</a></li>
+<li>7.1.   <a href="#rfc.section.7.1">Overview</a></li>
+<li>7.2.   <a href="#rfc.section.7.2">Key Combination Algorithm</a></li>
+<li>7.3.   <a href="#rfc.section.7.3">RPC Definition</a></li>
+<li>7.4.   <a href="#rfc.section.7.4">Server Operation</a></li>
+<li>7.5.   <a href="#rfc.section.7.5">Client Operation</a></li>
+<li>8.   <a href="#rfc.section.8">The rxgk Security Class</a></li>
+<li>8.1.   <a href="#rfc.section.8.1">Overview</a></li>
+<li>8.2.   <a href="#rfc.section.8.2">Rekeying</a></li>
+<li>8.3.   <a href="#rfc.section.8.3">Key Derivation</a></li>
+<li>8.4.   <a href="#rfc.section.8.4">The Challenge</a></li>
+<li>8.5.   <a href="#rfc.section.8.5">The Response</a></li>
+<li>8.5.1.   <a href="#rfc.section.8.5.1">The Authenticator</a></li>
+<li>8.6.   <a href="#rfc.section.8.6">Checking the Response</a></li>
+<li>8.7.   <a href="#rfc.section.8.7">Packet Handling</a></li>
+<li>8.7.1.   <a href="#rfc.section.8.7.1">Authentication Only</a></li>
+<li>8.7.2.   <a href="#rfc.section.8.7.2">Integrity Protection</a></li>
+<li>8.7.3.   <a href="#rfc.section.8.7.3">Encryption</a></li>
+<li>9.   <a href="#rfc.section.9">RXGK protocol error codes</a></li>
+<li>10.   <a href="#rfc.section.10">AFS-3 Registry Considerations</a></li>
+<li>11.   <a href="#rfc.section.11">IANA Considerations</a></li>
+<li>12.   <a href="#rfc.section.12">Security Considerations</a></li>
+<li>12.1.   <a href="#rfc.section.12.1">Abort Packets</a></li>
+<li>12.2.   <a href="#rfc.section.12.2">Token Expiry</a></li>
+<li>12.3.   <a href="#rfc.section.12.3">Nonce Lengths</a></li>
+<li>13.   <a href="#rfc.references">References</a></li>
+<li>13.1.   <a href="#rfc.references.1">Informational References</a></li>
+<li>13.2.   <a href="#rfc.references.2">Normative References</a></li>
+<li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgements</a></li>
+<li>Appendix B.   <a href="#rfc.appendix.B">Changes</a></li>
+<li>B.1.   <a href="#rfc.appendix.B.1">Since 00</a></li>
+<li>B.2.   <a href="#rfc.appendix.B.2">Since 01</a></li>
+<li>B.3.   <a href="#rfc.appendix.B.3">Since 02</a></li>
+<li>B.4.   <a href="#rfc.appendix.B.4">Since 03</a></li>
+<li>B.5.   <a href="#rfc.appendix.B.5">Since 04</a></li>
+<li>B.6.   <a href="#rfc.appendix.B.6">Since 05</a></li>
+<li>B.7.   <a href="#rfc.appendix.B.7">Since 06</a></li>
+<li>B.8.   <a href="#rfc.appendix.B.8">Since 07</a></li>
+<li>B.9.   <a href="#rfc.appendix.B.9">Since 08</a></li>
+<li>B.10.   <a href="#rfc.appendix.B.10">Since 09</a></li>
+<li><a href="#rfc.authors">Authors' Addresses</a></li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#intro" id="intro">Introduction</a></h1>
+<p id="rfc.section.1.p.1">rxgk is a <a href="#RFC2743">GSSAPI</a> <cite title="NONE">[RFC2743]</cite> based security class for the <a href="#RX">rx</a> <cite title="NONE">[RX]</cite> protocol. It provides authentication, confidentiality and integrity protection for rx RPC calls, using a security context established using any GSSAPI mechanism with confidentiality, mutual authentication, and <a href="#RFC4401">PRF</a> <cite title="NONE">[RFC4401]</cite> support. The External Data Representation Standardard, <a href="#RFC4506">XDR</a> <cite title="NONE">[RFC4506]</cite>, is used to represent data structures on the wire and in the code fragments contained within this document. </p>
+<p id="rfc.section.1.p.2">rxgk is intended to replace the existing rxkad security class, which is limited to very weak cryptography (<a href="#RFC6649">approximately single-DES</a> <cite title="NONE">[RFC6649]</cite>), owing to its roots in the era of Kerberos 4, and is deficient in many other ways.  rxgk will bring in stronger cryptography with key derivation for different operations, as well as allowing for flexible initial authentication via the <a href="#RFC2743">GSS-API</a> <cite title="NONE">[RFC2743]</cite>.</p>
+<p id="rfc.section.1.p.3">Architecturally, rxgk is split into two parts. The rxgk rx security class provides strong encryption using previously negotiated ciphers and keys. It builds on the Kerberos crypto framework <a href="#RFC3961">[RFC3961]</a> for its encryption requirements, but is authentication mechanism independent -- the class itself does not require the use of either Kerberos, or GSSAPI. The security class simply uses a previously negotiated encryption type, and master key. The master key is never directly used, but instead a per-connection key is derived for each new secure connection that is established.</p>
+<p id="rfc.section.1.p.4">The second portion of rxgk is a service which permits the negotiation of an encryption algorithm, and the establishment of a master key. This is done via a separate RPC exchange with a server, prior to the setup of any rxgk connections. The exchange establishes an rxgk token, and a master key shared between client and server. This exchange is protected within a GSSAPI security context.</p>
+<h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> Requirements Language</h1>
+<p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119">RFC 2119</a> <cite title="NONE">[RFC2119]</cite>.</p>
+<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#time" id="time">Time Representation</a></h1>
+<pre>
+typedef hyper rxgkTime;
+</pre>
+<p id="rfc.section.2.p.1">rxgk expresses absolute time as a 64-bit integer. This contains the time relative to midnight, or 0 hour, January 1, 1970 UTC, represented in increments of 100 nanoseconds, excluding any leap seconds. Negative times, whilst permitted by the representation, MUST NOT be used within rxgk.  </p>
+<h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#enctype" id="enctype">Encryption Framework</a></h1>
+<p id="rfc.section.3.p.1">Bulk data encryption within rxgk is performed using the encryption framework defined by <a href="#RFC3961">RFC3961</a> <cite title="NONE">[RFC3961]</cite>. Any algorithm which is defined using this framework and supported by both client and server may be used.  </p>
+<h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#usage" id="usage">Key Usage Values</a></h1>
+<pre>
+const RXGK_CLIENT_ENC_PACKET            = 1026;
+const RXGK_CLIENT_MIC_PACKET            = 1027;
+const RXGK_SERVER_ENC_PACKET            = 1028;
+const RXGK_SERVER_MIC_PACKET            = 1029;
+const RXGK_CLIENT_ENC_RESPONSE          = 1030;
+const RXGK_SERVER_ENC_TOKEN             = 1036;
+</pre>
+<p id="rfc.section.3.1.p.1">In order to avoid using the same key for multiple tasks, key derivation is employed. To avoid any conflicts with other users of these keys, key usage numbers are allocated within the application space documented in section 4 of <a href="#RFC4120">RFC4120</a> <cite title="NONE">[RFC4120]</cite>.  <a href="#class">Section 8</a>.  </p>
+<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#levels" id="levels">Security Levels</a></h1>
+<pre>
+enum RXGK_Level {
+    RXGK_LEVEL_CLEAR = 0,
+    RXGK_LEVEL_AUTH = 1,
+    RXGK_LEVEL_CRYPT = 2
+};
+</pre>
+<p id="rfc.section.4.p.1">rxgk supports the negotiation of a range of different security levels.  These, along with the protocol constants that represent them during key negotiation, are: </p>
+
+<dl>
+  <dt>Authentication only</dt>
+  <dd style="margin-left: 6">(0) Provides only connection authentication, without either integrity or confidentiality protection. This mode of operation can provide higher throughput, but is vulnerable to man in the middle attacks and gives no protection against eavesdropping. This corresponds to the traditional rxkad 'clear' security level.</dd>
+  <dt>Integrity</dt>
+  <dd style="margin-left: 6">(1) Provides integrity protection only.  Data is protected from modification by an attacker, but not against eavesdropping. This corresponds to the traditional rxkad 'auth' security level, authenticating the data payload as well as the Rx connection.</dd>
+  <dt>Encryption</dt>
+  <dd style="margin-left: 6">(2) Provides both integrity and confidentiality protection. This corresponds to the traditional rxkad 'crypt' security level.</dd>
+</dl>
+
+<p> </p>
+<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#tokens" id="tokens">Token Format</a></h1>
+<p id="rfc.section.5.p.1">An rxgk token is an opaque identifier which is specific to a particular application's implementation of rxgk. The token is completely opaque to the client, which just receives it from one server and passes it to another. The token MUST permit the receiving server to identify the corresponding user and session key for the incoming connection -- whether that be by decrypting the information within the token, or making the token a large random identifier which keys a lookup table on the server, or some other mechanism.  It is assumed that such mechanisms will conceptually "encrypt" a token by somehow associating the "encrypted" token with the associated unencrypted data, and will "decrypt" an encrypted token by using that association to find the unencrypted data. As such, this document will use "encrypt" and "decrypt" to refer to these operations on tokens.  If the token is an encrypted blob, it should be encrypted using the key usage RXGK_SERVER_ENC_TOKEN.</p>
+<p id="rfc.section.5.p.2">At a minimum, the decrypted token would need to include the master session key K0 (and enctype).  A decrypted token would also be expected to contain a representation of the user's identity, the token expiration time, and various connection parameters, such as the negotiated lifetimes (see <a href="#keyneg">Section 6</a>), but operation without those parameters is conceivable.</p>
+<p id="rfc.section.5.p.3">The token MUST NOT expose the session key on the wire. The token MUST be sufficiently random that an attacker cannot predict suitable token values by observing other connections. An attacker MUST NOT be able to forge tokens which convey a particular session key or identity.</p>
+<h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#keyneg" id="keyneg">Key Negotiation</a></h1>
+<p id="rfc.section.6.p.1">rxgk uses an independent RX RPC service for key negotiation. The location of this service is application dependent. Within a given application protocol, a client MUST be able to locate the key negotiation service, and that service MUST be able to create tokens which can be read by the application server. The simplest deployment has the negotiation service running on every application server, on the same transport endpoints, but using a separate, dedicated, rx service ID.</p>
+<p id="rfc.section.6.p.2">The rxgk key negotiation service uses the service ID 34567.</p>
+<p id="rfc.section.6.p.3">GSS security context negotiation requires that the initiator specify a principal name for the acceptor; in the absence of application-specific knowledge, when using rxgk over a port number registered with IANA, the registered service name SHOULD be used to construct the target principal name as &lt;service name&gt;@&lt;hostname&gt; using the name type GSS_C_NT_HOSTBASED_SERVICE.</p>
+<h1 id="rfc.section.6.1"><a href="#rfc.section.6.1">6.1.</a> RPC Interface</h1>
+<p id="rfc.section.6.1.p.1">The key negotiation protocol is defined by the RPC-L below.  The maximum length of data allowable in an RXGK_Data object, RXGK_MAXDATA, is application-specific, but MUST NOT be less than 1048576.</p>
+<pre>
+    /* limits for variable-length arrays */
+    const RXGK_MAXENCTYPES = 255;
+    const RXGK_MAXLEVELS = 255;
+    const RXGK_MAXMIC = 1024;
+    const RXGK_MAXNONCE = 1024;
+    /* const RXGK_MAXDATA = 1048576; */
+
+    typedef int RXGK_Enctypes&lt;RXGK_MAXENCTYPES&gt;;
+    typedef opaque RXGK_Data&lt;RXGK_MAXDATA&gt;;
+
+    struct RXGK_StartParams { 
+        RXGK_Enctypes enctypes;
+        RXGK_Level levels&lt;RXGK_MAXLEVELS&gt;;
+        unsigned int lifetime;
+        unsigned int bytelife;
+        opaque client_nonce&lt;RXGK_MAXNONCE&gt;;
+    };
+
+    struct RXGK_ClientInfo {
+        int errorcode;
+        int enctype;
+        RXGK_Level level;
+        unsigned int lifetime;
+        unsigned int bytelife;
+        rxgkTime expiration;
+        opaque mic&lt;RXGK_MAXMIC&gt;;
+        RXGK_Data token;
+        opaque server_nonce&lt;RXGK_MAXNONCE&gt;;
+    };
+
+    package RXGK_
+
+    GSSNegotiate(IN RXGK_StartParams *client_start,
+		 IN RXGK_Data *input_token_buffer,
+		 IN RXGK_Data *opaque_in,
+		 OUT RXGK_Data *output_token_buffer,
+		 OUT RXGK_Data *opaque_out,
+		 OUT unsigned int *gss_major_status,
+		 OUT unsigned int *gss_minor_status,
+		 OUT RXGK_Data *rxgk_info) = 1;
+
+</pre>
+<p id="rfc.section.6.1.p.2">The client populates RXGK_StartParams with its preferred options. The enctypes and levels parameters are lists of values supported by the client, and MUST be ordered from best to worst, with the client's favoured option occurring first within the list. The parameters are: <a href="#keyneg">Section 6</a>.</p>
+
+<dl>
+  <dt>enctypes:</dt>
+  <dd style="margin-left: 6">List of encryption types from the Kerberos Encryption Type Number registry created in RFC3961 and maintained by IANA. This list indicates the encryption types that the client is prepared to support.</dd>
+  <dt>levels:</dt>
+  <dd style="margin-left: 6">List of supported rxgk transport encryption levels. See <a href="#levels">Section 4</a> for allowed values.</dd>
+  <dt>lifetime:</dt>
+  <dd style="margin-left: 6">The maximum number of seconds that a connection key should be used before rekeying. A value of 0 indicates that the connection should not be rekeyed based on its lifetime. This lifetime is advisory -- a connection that is past its lifetime should be permitted to continue, but endpoints SHOULD attempt to rekey the connection (as per <a href="#rekeying">Section 8.2</a>) at their earliest convenience.  The use of the lifetime to determine when to rekey a connection is described in <a href="#rekeying">Section 8.2</a>.</dd>
+  <dt>bytelife:</dt>
+  <dd style="margin-left: 6">The maximum amount of data to be transferred over the connection before it should be rekeyed, expressed as log base 2 of the number of bytes. A value of 0 indicates that there is no limit on the number of bytes that may be transmitted. The byte lifetime is advisory -- a connection that is over its byte lifetime should be permitted to continue, but endpoints SHOULD attempt to rekey the connection (as per <a href="#rekeying">Section 8.2</a>) at their earliest convenience.  The use of the bytelife to determine when to rekey a connection is described in <a href="#rekeying">Section 8.2</a> along with the lifetime.</dd>
+  <dt>client_nonce:</dt>
+  <dd style="margin-left: 6">A client-generated string of random bytes, to be used as input to the key generation.  This nonce SHOULD be at least 20 octets in length, but SHOULD NOT be longer than the longest key generation seed length in the <a href="#RFC3961">[RFC3961]</a> profile of the proposed enctypes.</dd>
+</dl>
+
+<p> The GSSNegotiate RPC is used within the GSS negotiation loop (described below), which begins with the client calling GSS_Init_sec_context() to obtain an output token to send to the server. The GSS service name is application dependent; for constructing a service name see </p>
+<p id="rfc.section.6.1.p.3">The client then calls GSSNegotiate, as defined above. This takes the following parameters: </p>
+
+<dl>
+  <dt>client_start</dt>
+  <dd style="margin-left: 6">The client params structure detailed above.  This will remain constant across the negotiation.</dd>
+  <dt>input_token_buffer</dt>
+  <dd style="margin-left: 6">The token produced by a call to GSS_Init_sec_context().</dd>
+  <dt>opaque_in</dt>
+  <dd style="margin-left: 6">An opaque token, which was returned by the server following a previous call to GSSNegotiate in this negotiation.  If this is the first call, opaque_in should be zero-length.</dd>
+  <dt>output_token_buffer</dt>
+  <dd style="margin-left: 6">The token output by the server's call to GSS_Accept_sec_context().  It is RECOMMENDED that error tokens be sent, if produced.</dd>
+  <dt>opaque_out</dt>
+  <dd style="margin-left: 6">An opaque token, which the server may use to preserve state information between multiple RPCs in the same context negotiation. The client should use this value as opaque_in in its next call to GSSNegotiate in this context negotiation.</dd>
+  <dt>gss_major_status</dt>
+  <dd style="margin-left: 6">An indication of the major status code output by the server's call to GSS_Accept_sec_context().  The abstract GSS-API does not specify the encoding for status values, so the return value cannot necessarily just be transmitted as-is.  The status code values for GSS_S_COMPLETE (0) and GSS_S_CONTINUE_NEEDED (1) from the C bindings in <a href="#RFC2744">[RFC2744]</a> are used and the encoding of all other status codes is unspecified As such, any distinction between other non-zero values is purely informational.</dd>
+  <dt>gss_minor_status</dt>
+  <dd style="margin-left: 6">The minor status code returned by GSS_Accept_sec_context(). Implementors should note that minor status codes are not portable between GSSAPI implementations and therefore this field can only be of informative value.</dd>
+  <dt>rxgk_info</dt>
+  <dd style="margin-left: 6">If gss_major_status == GSS_S_COMPLETE, this contains the output of GSS_Wrap() performed over an XDR encoded RXGK_ClientInfo structure from the server, containing the server's response to the client.  See below.</dd>
+</dl>
+<h1 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2.</a> GSS Negotiation Loop</h1>
+<p id="rfc.section.6.2.p.1">To effect key negotiation, the client and server undertake a standard GSS negotiation loop, using the GSSNegotiate() RPC as the communication channel for exchanging context tokens.  The client acts as the GSS initiator, calling GSS_Init_sec_context(), and the server is the GSS acceptor, calling GSS_Accept_sec_context() <a href="#RFC2743">[RFC2743]</a>, <a href="#RFC2744">[RFC2744]</a>.  A description of the structure of the GSS negotiation loop, consolidating the requirements from RFC 2743 into a single location, is found in <a href="#GSSLOOP">[GSSLOOP]</a>.  The loop continues until both parties have completed the security context negotiation (GSS_Init_sec_context() and GSS_Accept_sec_context() return GSS_S_COMPLETE) or an error occurs with the negotiation.</p>
+<p id="rfc.section.6.2.p.2">All calls to GSSNegotiate() in the loop MUST occur on the same RX connection.  GSS security context tokens are transferred from initiator to acceptor in the input_token_buffer argument of the RPC, and security context tokens are transferred from the acceptor to the initiator in the output_token_buffer argument of the RPC.  The opaque_in and opaque_out arguments of the RPC allow the acceptor to retain state on the security context being constructed across multiple calls to GSSNegotiate(); the contents of these opaques are application-specific.</p>
+<p id="rfc.section.6.2.p.3">Due to the stateless nature of Rx RPC servers, there is no need for the initiator to report errors in context establishment to the acceptor.  The acceptor has three ways in which errors can be reported back to the initiator: the RPC return value, the gss_major_status/gss_minor_status output arguments, and the 'errorcode' field of the RXGK_ClientInfo.  The errorcode field should be used to report an error (using a com_err error code) if either of the following are true: </p>
+
+<ol>
+  <li>The acceptor's security context negotiation is complete but a non-GSS error occurred while constructing the RXGK_ClientInfo.</li>
+  <li>The acceptor's security context negotiation is complete but the security context does not provide the necessary functionality for rxgk (see below).  </li>
+</ol>
+
+<p> If the errorcode field of the RXGK_ClientInfo is nonzero, the other fields in the RXGK_ClientInfo MUST be set to zero or zero-length, as appropriate.  If an error is returned from GSS_Accept_sec_context() or any other GSS library call, during security context establishment or the preparation of the rxgk_info output parameter, this failure is reported in the gss_major_status and gss_minor_status output arguments of the RPC.  If a non-GSS error occurs during the context negotiation loop, this error is reported as a com_err error code in the RPC return value.  When the initiator receives indication of an error from the acceptor, the initiator terminates its half of the context negotiation loop.  In general, such an error should be reported back to the user and no automated failover should occur other than a limited number of retries.</p>
+<p id="rfc.section.6.2.p.4">Because the values of the GSS error codes are not specified in the abstract GSS API, we use the values for GSS_S_COMPLETE and GSS_S_CONTINUE_NEEDED from the C bindings in <a href="#RFC2744">[RFC2744]</a>; other values serve to indicate that an error occurred, but are otherwise purely informational in nature.</p>
+<p id="rfc.section.6.2.p.5">rxgk requires mutual authentication, message confidentiality, and message integrity protection.  Both initiator and acceptor MUST check the mutual_state, conf_avail, and integ_avail flags for the completed security context.  Accordingly, the initiator MUST set the corresponding request flags, mutual_req_flag, conf_req_flag, and integ_req_flag.  If the acceptor detects that one or more of these flags are missing, it MUST report the error in the errorcode field of the returned RXGK_ClientInfo (and not populate the other fields of that structure).  If the initiator detects that one or more of these flags are missing, it MUST fail the key negotiation attempt.</p>
+<p id="rfc.section.6.2.p.6">Failure of the negotiation loop or failure to establish a sufficiently protected security context will in general affect the client's future behavior, potentially even the security class used for future connections, so care should be taken to report errors in a secure fashion when possible.  A failure of the negotiation loop may occur for transient reasons and should not necessarily be interpreted to mean that rxgk is not usable on this connection (see <a href="#security">Section 12</a>), whereas an error returned in the errorcode field of the RXGK_ClientInfo object is subject to GSS protection and is more likely to be usable for determining future actions.</p>
+<h1 id="rfc.section.6.3"><a href="#rfc.section.6.3">6.3.</a> Returned Information</h1>
+<p id="rfc.section.6.3.p.1">Upon successful completion of the loop (negotiation of a GSS security context), rxgk_info contains a GSS wrap token (as generated by GSS_Wrap() using the acceptor's established security context) taken over the XDR encoding of an RXGK_ClientInfo structure.  If confidentiality protection is available (the conf_ret_flag was set), then conf_flag MUST be set to true in the call to GSS_Wrap().  If confidentiality proection is not available, then the RXGK_ClientInfo MUST NOT contain a valid token.  It is only appropriate to use GSS_Wrap() without confidentiality protection for the returned RXGK_ClientInfo when using the errorcode field of the RXGK_ClientInfo structure to report an error in the negotiation process.  The unavailability of confidentiality protection itself is one error that might be indicated in such a fashion.  The client should decrypt the received rxgk_info structure using GSS_Unwrap().  If the value of conf_state returned from gss_unwrap() is zero, then the negotiation has failed to obtain a valid token.  In this case the value of the errorcode element may still be inspected for additional information.</p>
+<p id="rfc.section.6.3.p.2">RXGK_ClientInfo contains the following server populated fields: </p>
+
+<dl>
+  <dt>errorcode</dt>
+  <dd style="margin-left: 6">A policy (rather than connection establishment) error code. If non-zero, an error has occurred, the resulting key negotiation has failed, and the rest of the values in this structure are undefined.  These policy error codes are from com_err tables <a href="#COMERR">[COMERR]</a> and may represent such conditions as insufficient authorization or that the client has too many active connections to the service.  Error codes may be RXGK errors (see <a href="#AFSReg">Section 10</a>) or from an application-specific table.</dd>
+  <dt>enctype</dt>
+  <dd style="margin-left: 6">The encryption type selected by the server.  This SHALL be one of the types listed by the client in its StartParams structure.</dd>
+  <dt>level</dt>
+  <dd style="margin-left: 6">The rxgk security level selected by the server, see <a href="#levels">Section 4</a> for allowed values.</dd>
+  <dt>lifetime</dt>
+  <dd style="margin-left: 6">The connection lifetime, in seconds, as determined by the server. The server MAY honor the client's request, but the server MUST choose a value at least as restrictive as the value requested by the client. A value of zero indicates that the connection should not be rekeyed based on its lifetime.</dd>
+  <dt>bytelife</dt>
+  <dd style="margin-left: 6">The maximum amount of data (as log base 2 of the number of bytes) that may be transfered using this key. The server MAY honor the client's request, but the server MUST choose a value at least as restrictive as the value requested by the client. A value of 0 indicates that the connection should not be rekeyed based on the number of bytes transmitted over the connection.</dd>
+  <dt>expiration</dt>
+  <dd style="margin-left: 6">The time, expressed as an rxgkTime, at which this token expires. The expiration time MAY be set administratively by the server, and SHOULD reflect the expiration time of the underlying GSSAPI credential. The token SHOULD NOT expire later than the underlying GSSAPI credential.</dd>
+  <dt>mic</dt>
+  <dd style="margin-left: 6">The result of calling gss_get_mic() <a href="#RFC2744">[RFC2744]</a> over the XDR encoded representation of the StartParams request received by the server.</dd>
+  <dt>token</dt>
+  <dd style="margin-left: 6">An rxgk token. This is an opaque blob, as detailed in <a href="#tokens">Section 5</a>.</dd>
+  <dt>server_nonce</dt>
+  <dd style="margin-left: 6">The random nonce used by the server to create the K0 contained within the rxgk token.  The length of this nonce SHOULD be the key generation seed length of the selected enctype.</dd>
+</dl>
+
+<p> Upon receiving the server's response, the client MUST verify that the mic contained within it matches the MIC of the XDR representation of the StartParams structure it sent to the server (this prevents a man in the middle from performing a downgrade attack). The client SHOULD also verify that the server's selected connection properties match those proposed by the client.</p>
+<p id="rfc.section.6.3.p.3">The client may then compute K0, by taking the nonce it sent to the server (client_nonce) and the one it has just received (server_nonce), combining them together, and passing them to GSS_Pseudo_random() <a href="#RFC4401">[RFC4401]</a> with the GSS_C_PRF_KEY_FULL option:</p>
+<pre>
+	GSS_Pseudo_random(gssapi_context, 
+			  GSS_C_PRF_KEY_FULL, 
+			  client_nonce || server_nonce, 
+			  K_len, 
+			  *K0);
+     </pre>
+<p id="rfc.section.6.3.p.4">|| is the concatenation operation.</p>
+<p id="rfc.section.6.3.p.5">K_len is the required output length as specified in the RFC3961 profile of the negotiated enctype.</p>
+<p id="rfc.section.6.3.p.6">The ouput of GSS_Pseudo_random must then be passed through the random-to-key operation specified in the RFC3961 profile for the negotiated enctype in order to obtain the actual key K0.</p>
+<p id="rfc.section.6.3.p.7">The GSS_Pseudo_random() operation is deterministic, ensuring that the client and server generate the same K0.  The gssapi_context parameter is the same context used in the client's GSS_Init_sec_context() call and the server's GSS_Accept_sec_context() call.</p>
+<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#combine" id="combine">Combining Tokens</a></h1>
+<h1 id="rfc.section.7.1"><a href="#rfc.section.7.1">7.1.</a> Overview</h1>
+<p id="rfc.section.7.1.p.1">A client may elect to combine multiple rxgk tokens in its possession into a single token. This allows an rx connection to be secured using a combination of multiple, individually established identities, which provides additional security for a number of application protocols.  </p>
+<p id="rfc.section.7.1.p.2">Token combination is performed using the CombineTokens RPC call. The client has two keys -- K0 and K1, and two tokens, T0 and T1.  The client calls the CombineTokens RPC with T0 and T1 and negotiates the enctype and security level of the new token, received as Tn.  Tn contains the new key Kn, as computed by the server.  Using the negotiated enctype returned by the server, the client then locally combines the two keys using a defined combination algorithm to produce Kn.</p>
+<h1 id="rfc.section.7.2"><a href="#rfc.section.7.2">7.2.</a> Key Combination Algorithm</h1>
+<p id="rfc.section.7.2.p.1">Assume that the tokens being combined are T0 and T1, with master keys K0 and K1. The new master key for the combined token, Kn is computed using the KRB-FX-CF2 operation, described in section 5.1 of <a href="#RFC6113">[RFC6113]</a>.  The PRF+ operations will correspond to their respective key enctypes, and the random-to-key operation will correspond to the negotiated new enctype.  The constants pepper1 and pepper2 required by this operation are defined as the ASCII strings "AFS" and "rxgk" respectively.  </p>
+<h1 id="rfc.section.7.3"><a href="#rfc.section.7.3">7.3.</a> RPC Definition</h1>
+<p id="rfc.section.7.3.p.1">The token combination RPC is defined as:</p>
+<pre>
+    struct RXGK_CombineOptions {
+        RXGK_Enctypes enctypes;
+        RXGK_Level levels&lt;RXGK_MAXLEVELS&gt;;
+    };
+
+    struct RXGK_TokenInfo {
+        int enctype;
+        RXGK_Level level;
+        unsigned int lifetime;
+        unsigned int bytelife;
+        rxgkTime expiration;
+    };
+
+    CombineTokens(IN RXGK_Data *token0, IN RXGK_Data *token1,
+                  IN RXGK_CombineOptions *options,
+                  OUT RXGK_Data *new_token,
+                  OUT RXGK_TokenInfo *info) = 2;
+      </pre>
+<h1 id="rfc.section.7.4"><a href="#rfc.section.7.4">7.4.</a> Server Operation</h1>
+<p id="rfc.section.7.4.p.1">The server receives token0 and token1 from the RPC call, as well as the options suggested by the client.  Upon receipt, the server decrypts these tokens using its private key. Providing this decryption is successful, it now has copies of the master key from both tokens (K0 and K1).  The server then chooses an enctype and security level from the lists supplied by the client in the options argument.  The server SHOULD select the first entry from each list which is acceptable in the server's configuration, so as to respect any preferences indicated by the client.  The server then performs the key combination algorithm detailed above to obtain the new key, Kn. The server then constructs a new token as follows.  The expiration field is set to the minimum of the expiration values of the original tokens. The lifetime, bytelife, and any application-specific data fields are each combined so that the result is the most restrictive of the two values in each of the original tokens.  The identity information associated with the tokens are combined in an application-specific manner to yield the identity information in the combined token (the identity combining operation may be non-commutative).  This new token contains the derived key, Kn. The new token is encrypted with the server's private key, as normal, and returned to the client.  The enctype and level chosen by the server are returned in the info parameter, along with the computed lifetime, bytelife, and expiration.</p>
+<p id="rfc.section.7.4.p.2">If the server is unable to perform the CombineTokens operation with the given arguments, a nonzero value is returned and the client's request fails.</p>
+<p id="rfc.section.7.4.p.3">To reduce the potential for denial of service attacks, servers SHOULD only offer the CombineTokens operation to clients connecting over a secured rxgk connection.  CombineTokens SHOULD NOT be offered over an RXGK_LEVEL_CLEAR connection.  </p>
+<h1 id="rfc.section.7.5"><a href="#rfc.section.7.5">7.5.</a> Client Operation</h1>
+<p id="rfc.section.7.5.p.1">As detailed within the overview, the client calls the CombineTokens RPC using two tokens, T0 and T1, within its possession, as well as an RXGK_CombineOptions structure containing a list of acceptable enctypes and a list of acceptable security levels for the new token.  The client SHOULD supply these lists sorted by preference, with the most preferred option appearing first in the list.  The client then receives a new token, Tn, from this call, as well as an RXGK_TokenInfo structure containing information relating to Tn.  The client needs the level element of the info parameter to determine what security level to use the new token at, and the enctype parameter to know which enctype's random-to-key function and key generation seed length to use in generating Kn.  With the negotiated enctype, the client can then perform the key combination algorithm described in <a href="#derivation">Section 8.3</a>.  The client can only make use of Tn to establish an rxgk protected connection if it can derive Kn, which it can only do if it already knows K0 and K1.  </p>
+<p id="rfc.section.7.5.p.2">Clients MUST use an rxgk secured connection for the CombineTokens operation.</p>
+<h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#class" id="class">The rxgk Security Class</a></h1>
+<h1 id="rfc.section.8.1"><a href="#rfc.section.8.1">8.1.</a> Overview</h1>
+<p id="rfc.section.8.1.p.1">When a new connection using rxgk is created by the client, the client stores the current timestamp as an rxgkTime (start_time for the rest of this discussion), and then uses this, along with other connection information, to derive a transport key from the current master key (see <a href="#derivation">Section 8.3</a>).</p>
+<p id="rfc.section.8.1.p.2">This key is then used to protect the first message the client sends to the server. The server follows the standard RX security establishment protocol, and responds to the client with a challenge <a href="#RX">[RX]</a>.  rxgk challenges simply contain a random nonce selected by the server.</p>
+<p id="rfc.section.8.1.p.3">Upon receiving this challenge, the client uses the transport key to encrypt an authenticator, which contains the server's nonce, and some other connection information. The client sends this authenticator, together with start_time and the current user's rxgk token, back to the server.</p>
+<p id="rfc.section.8.1.p.4">The server decrypts the rxgk token to determine the master key in use, uses this to derive the transport key, which it in turn uses to decrypt the authenticator, and thus validate the connection.</p>
+<h1 id="rfc.section.8.2"><a href="#rfc.section.8.2">8.2.</a> <a href="#rekeying" id="rekeying">Rekeying</a></h1>
+<p id="rfc.section.8.2.p.1">As part of connection negotiation, the server and client agree upon advisory lifetimes (both time, and data, based) for connection keys. Each connection has a key number, which starts at 0. When a connection exceeds one of its lifetimes, either side may elect to increment the key number. When the other endpoint sees a key number increment, it should the connection counters it uses to enforce these connection key lifetimes.  Endpoints should accept packets encrypted with either the current, previous, or next key number, to allow for resends around the rekeying process.  </p>
+<p id="rfc.section.8.2.p.2">The key version number is contained within the 16 bit spare field of the RX header (used by previous security layers as a checksum field), and expressed as an unsigned value in network byte order.  If rekeying would cause this value to wrap, then the key version number MAY be stored locally as a 32-bit integer on both endpoints with only the low 16 bits transmitted on the wire.  If an endpoint cannot store a per-connection 32-bit key version number when the 16-bit key version number would wrap, that endpoint MUST terminate the connection.  </p>
+<h1 id="rfc.section.8.3"><a href="#rfc.section.8.3">8.3.</a> <a href="#derivation" id="derivation">Key Derivation</a></h1>
+<p id="rfc.section.8.3.p.1">In order to avoid the sharing of keys between multiple connections, each connection has its own transport key, TK, which is derived from the master key, K0. Derivation is performed using the PRF+ function defined in <a href="#RFC4402">[RFC4402]</a>, combined with the random-to-key function of K0's encryption type, as defined in RFC3961. The PRF input data is the concatenation of the rx epoch, connection ID, start_time and key number, all in network byte order. This gives: </p>
+<pre>
+  TK = random-to-key(PRF+(K0, L,
+	                  epoch || cid || start_time || key_number))
+</pre>
+<p id="rfc.section.8.3.p.2">L is the key generation seed length as specified in the RFC3961 profile.</p>
+<p id="rfc.section.8.3.p.3">epoch, cid and key_number are passed as 32 bit quantities; start_time is a 64 bit value.</p>
+<p id="rfc.section.8.3.p.4">Note that start_time is selected by the client when it creates the connection, and shared with the server as part of its response. Thus both sides of the negotiation are guaranteed to use the same value for start_time.  </p>
+<h1 id="rfc.section.8.4"><a href="#rfc.section.8.4">8.4.</a> The Challenge</h1>
+<pre>
+    struct RXGK_Challenge {
+        opaque nonce[20];
+    };
+</pre>
+<p id="rfc.section.8.4.p.1">The rxgk challenge is an XDR encoded structure with the following signature: </p>
+
+<dl>
+  <dt>nonce:</dt>
+  <dd style="margin-left: 6">20 octets of random data.</dd>
+</dl>
+
+<p> </p>
+<h1 id="rfc.section.8.5"><a href="#rfc.section.8.5">8.5.</a> The Response</h1>
+<pre>
+    const RXGK_MAXAUTHENTICATOR = 1416;	/* better fit in a packet! */
+    struct RXGK_Response {
+        rxgkTime start_time;
+        RXGK_Data token;
+        opaque authenticator&lt;RXGK_MAXAUTHENTICATOR&gt;
+    };
+</pre>
+<p id="rfc.section.8.5.p.1">The rxgk response is an XDR encoded structure, with the following signature: </p>
+
+<dl>
+  <dt>start_time:</dt>
+  <dd style="margin-left: 6">The time since the Unix epoch (1970-01-01 00:00:00Z), expressed as an rxgkTime (see <a href="#time">Section 2</a>).</dd>
+  <dt>authenticator:</dt>
+  <dd style="margin-left: 6">The XDR encoded representation of an RXGK_Authenticator, encrypted with the transport key, and key usage RXGK_CLIENT_ENC_RESPONSE.</dd>
+</dl>
+
+<p> </p>
+<h1 id="rfc.section.8.5.1"><a href="#rfc.section.8.5.1">8.5.1.</a> The Authenticator</h1>
+<pre>
+    struct RXGK_Authenticator {
+	opaque nonce[20];
+	opaque appdata&lt;&gt;;
+	RXGK_Level level;
+	unsigned int epoch;
+	unsigned int cid;
+	unsigned int call_numbers&lt;&gt;;
+    };
+</pre>
+<p/>
+
+<dl>
+  <dt>nonce:</dt>
+  <dd style="margin-left: 6">A copy of the nonce from the challenge.</dd>
+  <dt>appdata:</dt>
+  <dd style="margin-left: 6">An application specific opaque blob.</dd>
+  <dt>level:</dt>
+  <dd style="margin-left: 6">The desired security level for this particular connnection. This MUST NOT be less secure than the security level negotiated for the associated token.</dd>
+  <dt>epoch:</dt>
+  <dd style="margin-left: 6">The rx connection epoch.</dd>
+  <dt>cid:</dt>
+  <dd style="margin-left: 6">The rx connection ID.</dd>
+  <dt>call_numbers:</dt>
+  <dd style="margin-left: 6">The set of current rx call numbers for all available channels; unused channels should report a call number of zero.  The length of this vector indicates the maximum number of calls per connection supported by the client.</dd>
+</dl>
+
+<p> </p>
+<h1 id="rfc.section.8.6"><a href="#rfc.section.8.6">8.6.</a> Checking the Response</h1>
+<p id="rfc.section.8.6.p.1">To check the validity of an rxgk response, the authenticator should be decrypted, the nonce from the decrypted authenticator compared with the nonce sent in the RXGK_Challenge, and the connection ID and epoch compared with that of the current connection. The call number vector (call_numbers) should be supplied to the rx implementation.  The security level should be confirmed to be at least as secure as the security level of the token.  Failure of any of these steps MUST result in the failure of the security context.  </p>
+<h1 id="rfc.section.8.7"><a href="#rfc.section.8.7">8.7.</a> Packet Handling</h1>
+<p id="rfc.section.8.7.p.1">The way in which the rxgk security class handles packets depends upon the requested security level. As noted in <a href="#levels">Section 4</a>, 3 levels are currently defined -- authentication only, integrity protection and encryption.</p>
+<p id="rfc.section.8.7.p.2">Connection parameters used when preparing a packet for transmission MUST be verified when processing a received packet.  Packet handling when receiving packets is the inverse of the packet preparation procedures, with explicit data length fields used to remove padding added for encryption.</p>
+<h1 id="rfc.section.8.7.1"><a href="#rfc.section.8.7.1">8.7.1.</a> Authentication Only</h1>
+<p id="rfc.section.8.7.1.p.1">When running at the clear security level, RXGK_LEVEL_CLEAR, no manipulation of the payload is performed by the security class.</p>
+<h1 id="rfc.section.8.7.2"><a href="#rfc.section.8.7.2">8.7.2.</a> Integrity Protection</h1>
+<p id="rfc.section.8.7.2.p.1">Packet payloads transmitted at the auth security level, RXGK_LEVEL_AUTH, consist of an opaque blob of MIC data followed by the unencrypted original payload data.</p>
+<p id="rfc.section.8.7.2.p.2">The MIC data is generated by calling the RFC3961 get_mic operation using a key and a data input. The RXGK_CLIENT_MIC_PACKET key usage number MUST be used for packets transmitted from the client to the server. The RXGK_SERVER_MIC_PACKET key usage number MUST be used for packets transmitted from the server to the client. The following data structure is the get_mic operation data input:</p>
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           epoch                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                            cid                                |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        call number                            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                          sequence                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       security index                          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        data length                            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
+~                  original packet payload                      ~
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+<p id="rfc.section.8.7.2.p.3">All fields MUST be in network byte order.  The data length field specifies the length of the original packet payload in octets, excluding padding required for encryption routines.</p>
+<p id="rfc.section.8.7.2.p.4">The packet is transmitted with the following payload:</p>
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
+~                            MIC                                ~
+|                                                               |
+|               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|               |                                               |
++-+-+-+-+-+-+-+-+                                               |
+|                                                               |
+~                  original packet payload                      ~
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+<p id="rfc.section.8.7.2.p.5">Note: The length of the MIC depends on which RFC3961 encryption type is used.  In particular, the original packet payload may not be word-aligned.</p>
+<p id="rfc.section.8.7.2.p.6">Note: The data prepended to the original packet payload during the MIC generation is not transmitted.</p>
+<h1 id="rfc.section.8.7.3"><a href="#rfc.section.8.7.3">8.7.3.</a> <a href="#encryption" id="encryption">Encryption</a></h1>
+<p id="rfc.section.8.7.3.p.1">Using the encryption security level, RXGK_LEVEL_CRYPT, provides both integrity and confidentiality protection.</p>
+<p id="rfc.section.8.7.3.p.2">The existing payload is prefixed with a psuedo header, to produce the following plaintext data for encryption before transmission. All fields MUST be represented in network byte order for encryption.</p>
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           epoch                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                            cid                                |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        call number                            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                          sequence                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       security index                          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        data length                            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
+~                  original packet payload                      ~
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+</pre>
+<p id="rfc.section.8.7.3.p.3">The data length is the length of the following data in octets, and is necessary so the receiving end can remove any padding added by the encryption routines.  </p>
+<p id="rfc.section.8.7.3.p.4">This plaintext is encrypted using an RFC3961 style encrypt() function, with the connection's transport key, using key usage RXGK_CLIENT_ENC_PACKET for messages from client to server, and RXGK_SERVER_ENC_PACKET for messages from server to client.  The encrypted block is transmitted to the peer as the payload of the packet.  </p>
+<h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a> <a href="#RXGKErr" id="RXGKErr">RXGK protocol error codes</a></h1>
+<p id="rfc.section.9.p.1">This document specifies several error codes for use by RXGK implementations (see <a href="#AFSReg">Section 10</a> for the com_err table).  In general, when an endpoint receives any such error code, it should abort the current operation.  The various codes allow some information about why the operation failed to be conveyed to the peer so that future requests will be more likely to succeed.  The circumstances in which each error code should be used are as follows: </p>
+
+<dl>
+  <dt>RXGK_INCONSISTENCY</dt>
+  <dd style="margin-left: 6">Used for errors internal to the security class, such as when invariant assertions are violated.  For example, when an incoming packet to a server contains flags that do not match the server's idea of the connection state, or attempting to allocate a new connection where a connection already exists.</dd>
+  <dt>RXGK_PACKETSHORT</dt>
+  <dd style="margin-left: 6">The size of the packet is too small.  Used when a server is constructing a challenge packet but the required data would be larger than the server's allowed packet size.  Used when a reply packet received by the server is smaller than the expected size of a response packet.  Also used for the analogous situations on the other side of the challenge/response exchange.</dd>
+  <dt>RXGK_BADCHALLENGE</dt>
+  <dd style="margin-left: 6">A challenge or response packet (of the expected size) failed to decode properly or contained nonsense or useless data.</dd>
+  <dt>RXGK_BADETYPE</dt>
+  <dd style="margin-left: 6">Used when the supplied encryption type(s) are invalid or impermissible, such as for the GSSNegotiate and CombineTokens RPCs or when the client-supplied enctype list does not contain any entries that are acceptable to the server.</dd>
+  <dt>RXGK_BADLEVEL</dt>
+  <dd style="margin-left: 6">Used when the supplied security level(s) are invalid or impermissible, such as for the GSSNegotiate and CombineTokens RPCs or when the client-supplied list of security levels does not contain any entries that are acceptable to the server.</dd>
+  <dt>RXGK_BADKEYNO</dt>
+  <dd style="margin-left: 6">The client or client's token indicates the use of a key version number that is not present on the server.  May also be used when a key is presented that is not a valid key.</dd>
+  <dt>RXGK_EXPIRED</dt>
+  <dd style="margin-left: 6">The client presented an expired credential or token.</dd>
+  <dt>RXGK_NOTAUTH</dt>
+  <dd style="margin-left: 6">The caller is not authorized for the requested operation or the presented credentials are invalid.  In particular, may also be used when credentials are presented that have a start time in the future.  Note that many application error tables already include codes for "permission denied", which take precedence over this general error code.</dd>
+  <dt>RXGK_BAD_TOKEN</dt>
+  <dd style="margin-left: 6">The client failed to present a token or the presented token is invalid.  For cases including but not limited to: wrong size, fails to decode, zero or negative lifetime, starts too far in the future, and too long a lifetime.</dd>
+  <dt>RXGK_SEALED_INCON</dt>
+  <dd style="margin-left: 6">Encrypted or checksummed data does not verify or correctly decode.  The checksum is invalid, the sealed copy of the sequence and/or call number does not match the current state, or similar situations.</dd>
+  <dt>RXGK_DATA_LEN</dt>
+  <dd style="margin-left: 6">The packet is too large, contains a zero-length iovec entry, or otherwise presents an unacceptable or invalid data length.</dd>
+  <dt>RXGK_BAD_QOP</dt>
+  <dd style="margin-left: 6">The negotiated level of protection is insufficient for the operation being performed.</dd>
+</dl>
+
+<p> </p>
+<h1 id="rfc.section.10"><a href="#rfc.section.10">10.</a> <a href="#AFSReg" id="AFSReg">AFS-3 Registry Considerations</a></h1>
+<p id="rfc.section.10.p.1">This document requests that the AFS-3 registrar include a com_err error table for the RXGK module, as follows:</p>
+<pre>
+error_table RXGK
+ec RXGK_INCONSISTENCY, "Security module structure inconsistent"
+ec RXGK_PACKETSHORT, "Packet too short for security challenge"
+ec RXGK_BADCHALLENGE, "Invalid security challenge"
+ec RXGK_BADETYPE, "Invalid or impermissible encryption type"
+ec RXGK_BADLEVEL, "Invalid or impermissible security level"
+ec RXGK_BADKEYNO, "Key version number not found"
+ec RXGK_EXPIRED, "Token has expired"
+ec RXGK_NOTAUTH, "Caller not authorized"
+ec RXGK_BAD_TOKEN, "Security object was passed a bad token"
+ec RXGK_SEALED_INCON, "Sealed data inconsistent"
+ec RXGK_DATA_LEN, "User data too long"
+ec RXGK_BAD_QOP, "Inadequate quality of protection available"
+end
+</pre>
+<p id="rfc.section.10.p.2">The error table base should be 1233242880, with codes within the table assigned relative numbers starting from 0 in the order appearing above.</p>
+<p id="rfc.section.10.p.3">This document adopts the rxgk security negotiation service number 34567 into the RXGK_ package, and requests that that package and the corresponding RPC numbers be entered into the registry.</p>
+<h1 id="rfc.section.11"><a href="#rfc.section.11">11.</a> <a href="#IANA" id="IANA">IANA Considerations</a></h1>
+<p id="rfc.section.11.p.1">This memo includes no request to IANA.</p>
+<h1 id="rfc.section.12"><a href="#rfc.section.12">12.</a> <a href="#security" id="security">Security Considerations</a></h1>
+<h1 id="rfc.section.12.1"><a href="#rfc.section.12.1">12.1.</a> Abort Packets</h1>
+<p id="rfc.section.12.1.p.1">RX Abort packets are not protected by the RX security layer.  Therefore, caution should be exercised when relying on their results. In particular, clients MUST NOT use an error from GSSNegotiate or CombineTokens to determine whether to downgrade to another security class.</p>
+<h1 id="rfc.section.12.2"><a href="#rfc.section.12.2">12.2.</a> Token Expiry</h1>
+<p id="rfc.section.12.2.p.1">This document permits tokens to be issued with expiration times after the expiration time of the underlying GSSAPI credential, though implementations SHOULD NOT do so.  Allowing the expiration time of a credential to be artificially increased can break the invariants assumed by a security system, with potentially disastrous consequences.  For example, with the krb5 GSSAPI mechanism, access revocation may be implemented by refusing to issue new tickets (or renew existing tickets) for a principal; all access is assumed to be revoked once the maximum ticket lifetime has passed.  If an rxgk token is created with a longer lifetime than the kerberos ticket, this assumption is invalid, and the user whose access has supposedly been revoked may gain access to sensitive materials.  An application should only allow token expiration times to be extended after a security review of the assumptions made about credential expiration for the GSSAPI mechanism(s) in use with that application.  Such a review is needed to confirm that allowing token expiration times to be extended will not introduce vulnerabilities into the security eocsystem in which the application operates.</p>
+<h1 id="rfc.section.12.3"><a href="#rfc.section.12.3">12.3.</a> Nonce Lengths</h1>
+<p id="rfc.section.12.3.p.1">The key negotiation protocol includes both client-and server-generated nonces as input.  Both nonces are important, but serve slightly different purposes.  A random nonce is also used in the challenge-response authentication protocol, which serves yet a different purpose.</p>
+<p id="rfc.section.12.3.p.2">The client_nonce ensures that the StartParams structure is unique, and should be long enough that the client will not generate collisions within the lifetime of a given set of GSS credentials.  The client_nonce also contributes to the uniqueness of the generated key when GSS initiator credentials are used to establish multiple GSS security contexts.</p>
+<p id="rfc.section.12.3.p.3">The server_nonce serves primarily to add entropy to the generated key.  The maximum amount of entropy possible in the generated key is the key generation seed length, so using a longer nonce gives no benefit (unless the nonce is nonrandom).</p>
+<p id="rfc.section.12.3.p.4">The authentication nonce is used to prevent replays of the authenticator.  It is specified as a fixed length to allow the length of the challenge packet to be used to indicate a new version of the challenge/response protocol, but is chosen to be long enough that the server will not accidentally reuse a nonce in a reasonable timeframe.</p>
+<h1 id="rfc.references"><a href="#rfc.references">13.</a> References</h1>
+<h1 id="rfc.references.1"><a href="#rfc.references.1">13.1.</a> Informational References</h1>
+<table>
+  <tbody>
+    <tr>
+      <td class="reference">
+        <b id="RX">[RX]</b>
+      </td>
+      <td class="top"><a>Zeldovich, N.</a>, "<a>RX protocol specification</a>", October 2002.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="COMERR">[COMERR]</b>
+      </td>
+      <td class="top"><a title="MIT Student Information Processing Board">Raeburn, K.</a>, "<a>A Common Error Description Library for UNIX</a>", January 1989.<p>This paper is available as com_err.texinfo within com_err.tar.Z.</p></td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="GSSLOOP">[GSSLOOP]</b>
+      </td>
+      <td class="top"><a title="MIT Kerberos Consortium">Kaduk, B.</a>, "<a href="http://tools.ietf.org/html/draft-kaduk-kitten-gss-loop-01">Structure of the GSS Negotiation Loop</a>", Internet-Draft draft-kaduk-kitten-gss-loop-01, November 2013.</td>
+    </tr>
+  </tbody>
+</table>
+<h1 id="rfc.references.2"><a href="#rfc.references.2">13.2.</a> Normative References</h1>
+<table>
+  <tbody>
+    <tr>
+      <td class="reference">
+        <b id="RFC2119">[RFC2119]</b>
+      </td>
+      <td class="top"><a href="mailto:sob@harvard.edu" title="Harvard University">Bradner, S.</a>, "<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, March 1997.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC2743">[RFC2743]</b>
+      </td>
+      <td class="top"><a href="mailto:jlinn@rsasecurity.com" title="RSA Laboratories">Linn, J.</a>, "<a href="http://tools.ietf.org/html/rfc2743">Generic Security Service Application Program Interface Version 2, Update 1</a>", RFC 2743, January 2000.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC2744">[RFC2744]</b>
+      </td>
+      <td class="top"><a href="mailto:John_Wray@Iris.com" title="Iris Associates">Wray, J.</a>, "<a href="http://tools.ietf.org/html/rfc2744">Generic Security Service API Version 2 : C-bindings</a>", RFC 2744, January 2000.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC3961">[RFC3961]</b>
+      </td>
+      <td class="top"><a>Raeburn, K.</a>, "<a href="http://tools.ietf.org/html/rfc3961">Encryption and Checksum Specifications for Kerberos 5</a>", RFC 3961, February 2005.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC4120">[RFC4120]</b>
+      </td>
+      <td class="top"><a>Neuman, C.</a>, <a>Yu, T.</a>, <a>Hartman, S.</a> and <a>K. Raeburn</a>, "<a href="http://tools.ietf.org/html/rfc4120">The Kerberos Network Authentication Service (V5)</a>", RFC 4120, July 2005.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC4401">[RFC4401]</b>
+      </td>
+      <td class="top"><a>Williams, N.</a>, "<a href="http://tools.ietf.org/html/rfc4401">A Pseudo-Random Function (PRF) API Extension for the Generic Security Service Application Program Interface (GSS-API)</a>", RFC 4401, February 2006.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC4402">[RFC4402]</b>
+      </td>
+      <td class="top"><a>Williams, N.</a>, "<a href="http://tools.ietf.org/html/rfc4402">A Pseudo-Random Function (PRF) for the Kerberos V Generic Security Service Application Program Interface (GSS-API) Mechanism</a>", RFC 4402, February 2006.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC4506">[RFC4506]</b>
+      </td>
+      <td class="top"><a>Eisler, M.</a>, "<a href="http://tools.ietf.org/html/rfc4506">XDR: External Data Representation Standard</a>", STD 67, RFC 4506, May 2006.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC6113">[RFC6113]</b>
+      </td>
+      <td class="top"><a>Hartman, S.</a> and <a>L. Zhu</a>, "<a href="http://tools.ietf.org/html/rfc6113">A Generalized Framework for Kerberos Pre-Authentication</a>", RFC 6113, April 2011.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC6649">[RFC6649]</b>
+      </td>
+      <td class="top"><a>Hornquist Astrand, L.</a> and <a>T. Yu</a>, "<a href="http://tools.ietf.org/html/rfc6649">Deprecate DES, RC4-HMAC-EXP, and Other Weak Cryptographic Algorithms in Kerberos</a>", BCP 179, RFC 6649, July 2012.</td>
+    </tr>
+  </tbody>
+</table>
+<h1 id="rfc.appendix.A"><a href="#rfc.appendix.A">Appendix A.</a> Acknowledgements</h1>
+<p id="rfc.section.A.p.1">rxgk was originally developed over a number of AFS Hackathons. The editor of this document has assembled the protocol description from a number of notes taken at these meetings, and from a partial implementation in the Arla AFS client.</p>
+<p id="rfc.section.A.p.2">Thanks to Derrick Brashear, Jeffrey Hutzelman, Love Hornquist Astrand and Chaskiel Grundman for their original design work, and comments on this document, and apologies for any omissions or misconceptions in my archaeological work.</p>
+<p id="rfc.section.A.p.3">Marcus Watts and Jeffrey Altman provided invaluable feedback on an earlier version of this document at the 2009 Edinburgh AFS Hackathon.  </p>
+<p id="rfc.section.A.p.4">The text describing the rxgkTime type is based on language from Andrew Deason.  </p>
+<h1 id="rfc.appendix.B"><a href="#rfc.appendix.B">Appendix B.</a> Changes</h1>
+<h1 id="rfc.appendix.B.1"><a href="#rfc.appendix.B.1">B.1.</a> Since 00</h1>
+<p id="rfc.section.B.1.p.1">Add a reference to RFC4402, which describes the PRF+ algorithm we are using.</p>
+<p id="rfc.section.B.1.p.2">Change references to RXGK_Token to RXGK_Data for clarity, and add a definition of that type.</p>
+<p id="rfc.section.B.1.p.3">Rename the 'ticket' member of RXGK_ClientInfo to 'token', for consistency, and make it a simple opaque.</p>
+<p id="rfc.section.B.1.p.4">Add a length field to the packet header, so that we can remove padding.</p>
+<p id="rfc.section.B.1.p.5">Remove versioning in the challenge and the response.</p>
+<p id="rfc.section.B.1.p.6">Clarify that both bytelife and lifetime are advisory.</p>
+<p id="rfc.section.B.1.p.7">Remove the RXGK_CLIENT_COMBINE_ORIG and RXGK_SERVER_COMBINE_NEW key derivations, as these are no longer used.</p>
+<p id="rfc.section.B.1.p.8">Update the reference to draft-ietf-krb-wg-preauth-framework.</p>
+<p id="rfc.section.B.1.p.9">Require that CombineTokens be offered over an rxgk authenticated connection.</p>
+<p id="rfc.section.B.1.p.10">Pull our time definition out into its own section and define a type for it.</p>
+<p id="rfc.section.B.1.p.11">Define an enum for the security level, and use that throughout.</p>
+<h1 id="rfc.appendix.B.2"><a href="#rfc.appendix.B.2">B.2.</a> Since 01</h1>
+<p id="rfc.section.B.2.p.1">Spell check.</p>
+<p id="rfc.section.B.2.p.2">Remove a couple of stray references to afs_ types.</p>
+<p id="rfc.section.B.2.p.3">Update start_time text to clarify that it uses rxgkTime.</p>
+<p id="rfc.section.B.2.p.4">Make expiration also be an rxgkTime.</p>
+<p id="rfc.section.B.2.p.5">Add a definition for RXGK_LEVEL_BIND.</p>
+<p id="rfc.section.B.2.p.6">Add reference to RX.</p>
+<p id="rfc.section.B.2.p.7">Add reference to XDR.</p>
+<p id="rfc.section.B.2.p.8">Rename the gss_status output parameter from the GSSNegotiate RPC to gss_major_status, and update the supporting text.</p>
+<p id="rfc.section.B.2.p.9">Add a new gss_minor_status output paramter to the GSSNegotiate RPC, but make clear that it is there for informational use only.</p>
+<h1 id="rfc.appendix.B.3"><a href="#rfc.appendix.B.3">B.3.</a> Since 02</h1>
+<p id="rfc.section.B.3.p.1">Edit for grammar and punctuation.</p>
+<p id="rfc.section.B.3.p.2">Remove RXGK_LEVEL_BIND.</p>
+<p id="rfc.section.B.3.p.3">Make CombineTokens negotiate level and enctype.</p>
+<p id="rfc.section.B.3.p.4">Allow key version rollover at 16 bits when rekeying.</p>
+<p id="rfc.section.B.3.p.5">Add Security Considerations for increasing token expiry.</p>
+<p id="rfc.section.B.3.p.6">Clarify behavior at RXGK_LEVEL_AUTH.</p>
+<p id="rfc.section.B.3.p.7">Add RXGK com_err table and descriptions.</p>
+<p id="rfc.section.B.3.p.8">Clean up call number vector and maxcalls support.</p>
+<p id="rfc.section.B.3.p.9">Improve the description of the GSS negotiation loop.</p>
+<p id="rfc.section.B.3.p.10">Give suggestions for acceptor principal names.</p>
+<h1 id="rfc.appendix.B.4"><a href="#rfc.appendix.B.4">B.4.</a> Since 03</h1>
+<p id="rfc.section.B.4.p.1">Give guidance on the length of key negotiation nonces.</p>
+<p id="rfc.section.B.4.p.2">Supply bounds for (most) variable-length arrays.</p>
+<p id="rfc.section.B.4.p.3">Note that in-band errorcodes are for security sensitive errors.</p>
+<p id="rfc.section.B.4.p.4">Use abstract GSSAPI routine names, not the C binding names.</p>
+<p id="rfc.section.B.4.p.5">Discuss packet handling for received packets.</p>
+<h1 id="rfc.appendix.B.5"><a href="#rfc.appendix.B.5">B.5.</a> Since 04</h1>
+<p id="rfc.section.B.5.p.1">Correct omissions from description of GSS negotiation loop.</p>
+<p id="rfc.section.B.5.p.2">Adjust limits on variable-length array lengths.</p>
+<p id="rfc.section.B.5.p.3">Remove errorcode field from RXGK_TokenInfo.</p>
+<h1 id="rfc.appendix.B.6"><a href="#rfc.appendix.B.6">B.6.</a> Since 05</h1>
+<p id="rfc.section.B.6.p.1">Add markup to split out the GSS negotiation control flow.</p>
+<h1 id="rfc.appendix.B.7"><a href="#rfc.appendix.B.7">B.7.</a> Since 06</h1>
+<p id="rfc.section.B.7.p.1">Improvements to the GSS negotiation description.</p>
+<p id="rfc.section.B.7.p.2">Add the RXGK_BAD_QOP error code.</p>
+<h1 id="rfc.appendix.B.8"><a href="#rfc.appendix.B.8">B.8.</a> Since 07</h1>
+<p id="rfc.section.B.8.p.1">Refer to an external description of the GSS loop structure.</p>
+<p id="rfc.section.B.8.p.2">Describe rxkad and why it is bad.</p>
+<p id="rfc.section.B.8.p.3">Describe the minimal and expected token contents.</p>
+<h1 id="rfc.appendix.B.9"><a href="#rfc.appendix.B.9">B.9.</a> Since 08</h1>
+<p id="rfc.section.B.9.p.1">Update GSSLOOP reference (it is no longer targetting standards-track) and deal with the fallout accordingly.</p>
+<p id="rfc.section.B.9.p.2">Be internally consistent about encoding GSS major status codes.</p>
+<h1 id="rfc.appendix.B.10"><a href="#rfc.appendix.B.10">B.10.</a> Since 09</h1>
+<p id="rfc.section.B.10.p.1">General grammar/style edits.</p>
+<p id="rfc.section.B.10.p.2">Request the AFS-3 registry add RPC numbers and the RXGK_ package.</p>
+<h1 id="rfc.authors">
+  <a href="#rfc.authors">Authors' Addresses</a>
+</h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Simon Wilkinson</span> 
+	  <span class="n hidden">
+		<span class="family-name">Wilkinson</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Your File System Inc</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:simon@sxw.org.uk">simon@sxw.org.uk</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Benjamin Kaduk</span> 
+	  <span class="n hidden">
+		<span class="family-name">Kaduk</span>
+	  </span>
+	</span>
+	<span class="org vcardline">MIT Kerberos Consortium</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:kaduk@mit.edu">kaduk@mit.edu</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
